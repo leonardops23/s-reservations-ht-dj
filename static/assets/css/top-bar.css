@@ -1,0 +1,30 @@
+
+.top-bar {
+    background-color: var(--background-color-top-bar);
+    box-shadow: var(--box-shadow);
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 1260px;
+    margin: 0 auto;
+    font-weight: 200;
+    font-size: 15px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    
+    a i img {
+        width: 1rem;
+        height: 1rem;
+    }
+}

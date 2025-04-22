@@ -1,0 +1,42 @@
+{% load static %}
+
+<div class="top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/" target="_blank">
+                    <i class="fa fa-facebook">
+                        <img src="{% static 'assets/icons/facebook.png' %}" alt="">
+                    </i>
+                </a>
+                <a href="https://www.twitter.com/" target="_blank">
+                    <i class="fa fa-twitter">
+                        <img src="{% static 'assets/icons/x.png' %}" alt="">
+                    </i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank">
+                    <i class="fa fa-instagram">
+                        <img src="{% static 'assets/icons/insta.png' %}" alt="">
+                    </i>
+                </a>
+                <a href="https://www.linkedin.com/" target="_blank">
+                    <i class="fa fa-linkedin">
+                        <img src="{% static 'assets/icons/linkedin.png' %}" alt="">
+                    </i>
+                </a>
+            </div>
+            <!-- message of shipping -->
+            <div class="shipping-message">
+                <p>Free shipping on orders over $50</p>
+            </div>
+
+            <!-- welcome user -->
+            <div class="welcome-user">
+                {% if user.is_authenticated %}
+                    <p>Welcome, {{ user.username }}!</p>
+                {% else %}
+                    <p>Welcome, Guest!</p>
+                {% endif %}
+        </div>
+    </div>
+</div>

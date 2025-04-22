@@ -1,0 +1,11 @@
+Reservation de Hoteles
+
+Tech => {
+    django
+}
+
+Necesitamos => {
+    1. Hacer login [
+        si el usuario no esta registrado que haga el register
+    ]
+}
