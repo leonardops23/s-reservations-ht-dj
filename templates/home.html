@@ -1,15 +1,26 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/top-bar.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
     {% include 'top_bar.html' %}
     {% include 'navbar.html' %}
+
+    <main>
+        <img class="img-main-fashion" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D" alt="">
+        <p>Feel free to customize this template as needed.</p>
+        <p>For example, you can add more sections, images, or links to other pages.</p>
+        <p>Don't forget to include any necessary JavaScript files for interactivity.</p>
+        <p>Have fun building your website!</p>
+        <p>Remember to keep your code organized and well-commented.</p>
+    </main>
+
+    
 </body>
 </html>
