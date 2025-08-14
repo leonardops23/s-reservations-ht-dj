@@ -1,0 +1,10 @@
+services:
+  web:
+    build: ./backend_sleepinIn
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend_sleepinIn/:/usr/src/backend_sleepinIn/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
