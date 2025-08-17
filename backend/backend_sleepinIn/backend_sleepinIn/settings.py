@@ -32,6 +32,8 @@ AUTH_USER_MODEL = 'useraccount.User'
 
 SITE_ID = 1
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 WEBSITE_URL = 'http://localhost:8000'
 
 SIMPLE_JWT = {
