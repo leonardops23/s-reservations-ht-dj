@@ -17,6 +17,7 @@ then
 fi
 
 # Ejecuta las migraciones de Django
+python manage.py makemigrations
 python manage.py migrate
 
 # Pasa el control al comando principal del contenedor (el CMD)
