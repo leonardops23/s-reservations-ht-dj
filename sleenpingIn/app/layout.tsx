@@ -33,9 +33,9 @@ export default function RootLayout({
       >
         <NavBar />
         <div className="pt-30">{children}</div>
+        <LoginModal />
+        <SignUpModal />
       </body>
-      <LoginModal />
-      <SignUpModal />
     </html>
   );
 }

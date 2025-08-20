@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import React, { useState } from "react"
 
 import MenuIcon from "@/app/components/icons/MenuIcon"
 import UserIcon from "@/app/components/icons/UserIcon"
@@ -8,10 +8,17 @@ import UserIcon from "@/app/components/icons/UserIcon"
 import MenuLink from "@/app/components/navbar/MenuLInk"
 import useLoginModalStore from "@/app/components/hooks/useLoginModal"
 import useSignUpModalStore from "@/app/components/hooks/useSignUpModel"
+import LogoutButton from "../LogoutButton"
 
-const UserNavbar = () => {
+interface UserNavProps {
+  userId?: string | null
+}
+
+
+const UserNavbar: React.FC<UserNavProps> = (
+  {userId}
+) => {
   const [isOpen, setIsOpen] = useState(true);
-
   const loginModalStore = useLoginModalStore();
   const signUpModalStore = useSignUpModalStore();
 
@@ -30,14 +37,20 @@ const UserNavbar = () => {
         {isOpen && (
           <div className="w-[220px] absolute top-[60px] right-0 bg-white border border-gray-200 shadow-sm rounded-lg
               flex flex-col items-center">
-            <MenuLink
-              label="Log in" 
-              onClick={() => loginModalStore.onOpen()}
-            />
-            <MenuLink
-              label="Sign up"
-              onClick={() => signUpModalStore.onOpen()}
-            />
+            {userId ? (
+              <LogoutButton />
+            ): (
+              <>
+                <MenuLink
+                label="Log in" 
+                onClick={() => loginModalStore.onOpen()}
+                />
+                <MenuLink
+                label="Sign up"
+                onClick={() => signUpModalStore.onOpen()}
+                />
+              </>
+            )}
           </div>
         )}
       </div>

@@ -3,7 +3,7 @@ import React from "react";
 interface CustomButtonProps {
   label: string;
   className?: string;
-  onClick?: () => void; // opcional: para manejar clics
+  onClick?: () => void;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({ 
