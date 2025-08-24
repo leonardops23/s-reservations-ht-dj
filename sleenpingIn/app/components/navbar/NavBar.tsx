@@ -30,7 +30,9 @@ const Navbar = async () => {
             <SearchFilter />
           </div>
           <div className="flex space-x-6">
-            <AddPropertyButton />
+            <AddPropertyButton
+              userId={userId}
+            />
             <UserNavbar
               userId={userId}
             />

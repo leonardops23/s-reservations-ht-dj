@@ -15,3 +15,4 @@ const useLoginModalStore = create<LoginModalStore>((set) => ({
 }))
 
 export default useLoginModalStore;
+

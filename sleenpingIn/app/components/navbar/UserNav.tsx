@@ -18,7 +18,7 @@ interface UserNavProps {
 const UserNavbar: React.FC<UserNavProps> = (
   {userId}
 ) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const loginModalStore = useLoginModalStore();
   const signUpModalStore = useSignUpModalStore();
 
