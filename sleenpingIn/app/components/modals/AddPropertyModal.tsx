@@ -7,17 +7,21 @@ import Categories from "../addproperty/Categories";
 import SelectCountry, { SelectCountryValue } from "../forms/SelectCountry";
 
 import { ChangeEvent, HTMLInputAutoCompleteAttribute, useState } from "react";
+import apiService from "@/app/services/apiService";
+import { useRouter } from "next/navigation";
 
 const AddPropertyModal = () => {
+
+  const router = useRouter();
 
   const addPropertyModal = useAddPropertyModal();
 
   const [currentStep, setCurrentStep] = useState(1);
   const [dataCategory, setDataCategory] = useState('');
-  const [dataPrice, setDataPrice] = useState<number>(0);
-  const [dataBedrooms, setDataBedrooms] = useState<number>(0);
-  const [dataBathrooms, setDataBathrooms] = useState<number>(0);
-  const [dataGuests, setDataGuests] = useState<number>(0);
+  const [dataPrice, setDataPrice] = useState<number>();
+  const [dataBedrooms, setDataBedrooms] = useState<number>();
+  const [dataBathrooms, setDataBathrooms] = useState<number>();
+  const [dataGuests, setDataGuests] = useState<number>();
 
   const [dataCountry, setDataCountry] = useState<SelectCountryValue>();  
 
@@ -39,6 +43,40 @@ const AddPropertyModal = () => {
 
   const setCategory = (category: string) => {
     setDataCategory(category);
+  }
+
+  const submitForm = async () => {
+    console.log("clicked");
+    if (
+      dataCategory &&
+      title &&
+      description &&
+      dataPrice &&
+      dataCountry &&
+      dataImage
+    ) {
+      const formData = new FormData();
+      formData.append('category', dataCategory);
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('price_per_night', dataPrice?.toString() || '');
+      formData.append('bedrooms', dataBedrooms?.toString() || '');
+      formData.append('bathrooms', dataBathrooms?.toString() || '');
+      formData.append('guests', dataGuests?.toString() || '');
+      formData.append('country', dataCountry.value);
+      formData.append('country_code', dataCountry.label);
+      formData.append('image', dataImage as File);
+
+      const response = await apiService.post('/api/properties/', formData);
+      if (response.status === 200) {
+        console.log(response.data);
+        router.push('/');
+        addPropertyModal.onClose();
+      }
+      else {
+        console.log(`Error: ${response.status}`);
+      }
+    }
   }
 
   const content = (
