@@ -16,7 +16,7 @@ interface UserNavProps {
 
 
 const UserNavbar: React.FC<UserNavProps> = (
-  {userId}
+  { userId }
 ) => {
   const [isOpen, setIsOpen] = useState(false);
   const loginModalStore = useLoginModalStore();
@@ -25,9 +25,9 @@ const UserNavbar: React.FC<UserNavProps> = (
   return (
     <div className="relative">
       <div className="p-1 rounded-full border-2 border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300">
-        <button 
+        <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-full hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           aria-label="User menu"
         >
           <MenuIcon />
@@ -39,15 +39,15 @@ const UserNavbar: React.FC<UserNavProps> = (
               flex flex-col items-center">
             {userId ? (
               <LogoutButton />
-            ): (
+            ) : (
               <>
                 <MenuLink
-                label="Log in" 
-                onClick={() => loginModalStore.onOpen()}
+                  label="Log in"
+                  onClick={() => loginModalStore.onOpen()}
                 />
                 <MenuLink
-                label="Sign up"
-                onClick={() => signUpModalStore.onOpen()}
+                  label="Sign up"
+                  onClick={() => signUpModalStore.onOpen()}
                 />
               </>
             )}
