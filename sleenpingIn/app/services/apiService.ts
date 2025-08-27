@@ -1,52 +1,70 @@
-import { env } from "process";
+import { getAccessToken } from "../lib/actions";
 
 const apiService = {
-    get: async function (url:string): Promise<any> {
-        console.log('get: ', url)
+  get: async function (url: string): Promise<any> {
+    console.log('get: ', url)
 
-        return new Promise((resolve, reject) => {
-            fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                resolve(json)
-            })
-            .catch((error) => {
-                console.log(error);
-                reject(error)
-            })
+    return new Promise((resolve, reject) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getAccessToken()}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          resolve(json)
         })
-    },
-    post: async function(url:string, data:any): Promise<any> {
-        console.log('post: ', url, data)
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  post: async function (url: string, data: any): Promise<any> {
+    console.log('post: ', url, data)
 
-        return new Promise((resolve, reject) => {
-            fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                resolve(json)
-            })
-            .catch((error) => {
-                console.log(error);
-                reject(error)
-            })
+    return new Promise((resolve, reject) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getAccessToken()}`,
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          resolve(json)
         })
-    }
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  postWithoutToken: async function (url: string, data: any): Promise<any> {
+    console.log('post: ', url, data)
+
+    return new Promise((resolve, reject) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          resolve(json)
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  }
 }
-
 
 export default apiService;

@@ -11,25 +11,20 @@ import apiService from "@/app/services/apiService";
 import { useRouter } from "next/navigation";
 
 const AddPropertyModal = () => {
-
   const router = useRouter();
 
   const addPropertyModal = useAddPropertyModal();
 
   const [currentStep, setCurrentStep] = useState(1);
-  const [dataCategory, setDataCategory] = useState('');
-  const [dataPrice, setDataPrice] = useState<number>();
-  const [dataBedrooms, setDataBedrooms] = useState<number>();
-  const [dataBathrooms, setDataBathrooms] = useState<number>();
-  const [dataGuests, setDataGuests] = useState<number>();
-
+  const [dataCategory, setDataCategory] = useState<string>('');
+  const [dataPrice, setDataPrice] = useState('');
+  const [dataBedrooms, setDataBedrooms] = useState('');
+  const [dataBathrooms, setDataBathrooms] = useState('');
+  const [dataGuests, setDataGuests] = useState('');
   const [dataCountry, setDataCountry] = useState<SelectCountryValue>();  
-
   const [dataImage, setDataSetImage] = useState<File>();
-
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-
+  const [dataTitle, setDataTitle] = useState('');
+  const [dataDescription, setDataDescription] = useState('');
 
   const setImage = (
     event: ChangeEvent<HTMLInputElement>
@@ -46,36 +41,38 @@ const AddPropertyModal = () => {
   }
 
   const submitForm = async () => {
-    console.log("clicked");
     if (
-      dataCategory &&
-      title &&
-      description &&
+      dataTitle &&
+      dataDescription &&
       dataPrice &&
       dataCountry &&
       dataImage
     ) {
       const formData = new FormData();
-      formData.append('category', dataCategory);
-      formData.append('title', title);
-      formData.append('description', description);
-      formData.append('price_per_night', dataPrice?.toString() || '');
-      formData.append('bedrooms', dataBedrooms?.toString() || '');
-      formData.append('bathrooms', dataBathrooms?.toString() || '');
-      formData.append('guests', dataGuests?.toString() || '');
+      formData.append('title', dataTitle);
+      formData.append('description', dataDescription);
+      formData.append('price', dataPrice.toString());
       formData.append('country', dataCountry.value);
-      formData.append('country_code', dataCountry.label);
+      formData.append('category', dataCategory);
+      formData.append('bedrooms', dataBedrooms.toString());
+      formData.append('bathrooms', dataBathrooms.toString());
+      formData.append('guests', dataGuests.toString());
       formData.append('image', dataImage as File);
 
-      const response = await apiService.post('/api/properties/', formData);
-      if (response.status === 200) {
-        console.log(response.data);
-        router.push('/');
-        addPropertyModal.onClose();
+      try {
+        const response = await apiService.post('/api/properties', formData);
+        if (response.status === 201 || response.status === 200) {
+          console.log('Propiedad creada');
+          addPropertyModal.onClose();
+          router.push('/');
+        }
+      } catch (error: any) {
+        console.log('Error al enviar el formulario: ', error.response.data);
+        alert('Hubo un error al enviar formulario');
       }
-      else {
-        console.log(`Error: ${response.status}`);
-      }
+    }
+    else {
+      console.log("complete all fields");
     }
   }
 
@@ -103,16 +100,16 @@ const AddPropertyModal = () => {
               <label>Title</label>
               <input
                 type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={dataTitle}
+                onChange={(e) => setDataTitle(e.target.value)}
                 className="w-full p-4 border border-gray-600 rounded-xl"
               />
             </div>
             <div className="flex flex-col space-y-2">
               <label>Description</label>
               <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={dataDescription}
+                onChange={(e) => setDataDescription(e.target.value)}
                 className="w-full p-4 h-40 border border-gray-600 rounded-xl"
               />
             </div>
@@ -138,7 +135,7 @@ const AddPropertyModal = () => {
               <input
                 type="number"
                 value={dataPrice}
-                onChange={(e) => setDataPrice(Number(e.target.value))}
+                onChange={(e) => setDataPrice(e.target.value)}
                 className="w-full p-4 border border-gray-600 rounded-xl"
               />
             </div>
@@ -147,7 +144,7 @@ const AddPropertyModal = () => {
               <input
                 type="number"
                 value={dataBedrooms}
-                onChange={(e) => setDataBedrooms(Number(e.target.value))}
+                onChange={(e) => setDataBedrooms(e.target.value)}
                 className="w-full p-4 border border-gray-600 rounded-xl"
               />
             </div>
@@ -156,7 +153,7 @@ const AddPropertyModal = () => {
               <input
                 type="number"
                 value={dataBathrooms}
-                onChange={(e) => setDataBathrooms(Number(e.target.value))}
+                onChange={(e) => setDataBathrooms(e.target.value)}
                 className="w-full p-4 border border-gray-600 rounded-xl"
               />
             </div>
@@ -165,7 +162,7 @@ const AddPropertyModal = () => {
               <input
                 type="number"
                 value={dataGuests}
-                onChange={(e) => setDataGuests(Number(e.target.value))}
+                onChange={(e) => setDataGuests(e.target.value)}
                 className="w-full p-4 border border-gray-600 rounded-xl"
               />
             </div>
@@ -232,7 +229,7 @@ const AddPropertyModal = () => {
             />
             <CustomButton
               label="Submit"
-              onClick={() => console.log("clicked")}
+              onClick={() => submitForm()}
             />
           </div>
         </>

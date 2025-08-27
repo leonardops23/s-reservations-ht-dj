@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ const UserSingUpModal = () => {
       password2: password2,
     }
 
-    const response = await apiService.post('/api/auth/register/', JSON.stringify(formData));
+    const response = await apiService.postWithoutToken('/api/auth/register/', JSON.stringify(formData));
 
     if (response.access) {
       handleLogin(response.user.pk, response.access, response.refresh);
@@ -33,7 +33,9 @@ const UserSingUpModal = () => {
       router.push('/');
     }
     else {
-      const tempErrors: string[] = Object.values(response.errors).map((error: any) => error[0]);
+      const tempErrors: string[] = Object.values(response.errors).map((error: any) => {
+        return error[0]
+      })
       setErrors(tempErrors);
     }
   }

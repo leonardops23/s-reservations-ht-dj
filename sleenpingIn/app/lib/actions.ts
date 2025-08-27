@@ -20,16 +20,23 @@ export async function handleLogin(userId: string, accessToken: string, refreshTo
     httpOnly: true,
     maxAge: 60 * 60
   })
-
 }
 
+// TODO: Reset auth cookies
 export async function resetAuthCookies() {
   (await cookies()).set('session_userid', '');
   (await cookies()).set('session_access_token', '');
   (await cookies()).set('sesion_refresh_token', '');
 }
 
+// TODO: Get user id from cookies
 export async function getUserId() {
   const userId = (await cookies()).get('session_userid')?.value
   return userId ? userId: null
+}
+
+// TODO: Get access token from cookies
+export async function getAccessToken() {
+  const accessToken = (await cookies()).get('session_access_token')?.value
+  return accessToken ? accessToken: null
 }
